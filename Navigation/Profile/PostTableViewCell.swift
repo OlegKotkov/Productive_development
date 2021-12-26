@@ -7,6 +7,7 @@
 
 import UIKit
 import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -131,6 +132,8 @@ extension UILabel {
     }
     
     
+    processImage(sourceImage: UIImage, filter: noir, completion: (UIImage?) -> Void)
+
     
     
     

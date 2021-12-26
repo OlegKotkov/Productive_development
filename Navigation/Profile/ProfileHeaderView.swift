@@ -2,6 +2,8 @@
 
 import UIKit
 
+import SnapKit
+
 class ProfileHeaderView: UIView {
     
      let margin: CGFloat = 16.0
@@ -19,7 +21,6 @@ class ProfileHeaderView: UIView {
         imageView.clipsToBounds = true
         return imageView
     }()
-    
     
     
      private lazy var titleLabel: UILabel = {
@@ -82,18 +83,11 @@ class ProfileHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusButton.translatesAutoresizingMaskIntoConstraints = false
-        statusTextField.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupConstraints()
+        setupSNPConsraints()
+      
     }
-    
-    
-    
-    fileprivate func setupConstraints() {
+   
+    fileprivate func setupSNPConsraints() {
     
         
         backgroundColor = .lightGray
@@ -103,44 +97,40 @@ class ProfileHeaderView: UIView {
         addSubview(statusTextField)
         addSubview(statusLabel)
         
+       
+        avatarImageView.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(16)
+            maker.left.equalToSuperview().inset(16)
+            maker.width.equalTo(110)
+            maker.height.equalTo(110)
+        }
         
-        let constraints = [
+    
+        titleLabel.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(27)
+            maker.left.equalTo(avatarImageView.snp.right).inset(-16)
             
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 110), avatarImageView.heightAnchor.constraint(equalToConstant: 110),
-            
+        }
+       
+        statusLabel.snp.makeConstraints{ maker in
+            maker.top.equalToSuperview().inset(90)
+            maker.left.equalTo(avatarImageView.snp.right).inset(-16)
+           
+        }
+        statusTextField.snp.makeConstraints{ maker in
+            maker.top.equalTo(statusLabel).inset(26)
+            maker.left.equalTo(avatarImageView.snp.right).inset(-16)
+            maker.width.equalTo(156)
+            maker.right.equalToSuperview().inset(16)
+            maker.height.equalTo(40)
+        }
 
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            titleLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 16),
-            
-            statusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 43),
-            statusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
-            statusButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            statusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            statusButton.heightAnchor.constraint(equalToConstant: 50),
-        
-            
-            
-            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 6),
-            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
-            statusTextField.widthAnchor.constraint(equalToConstant: 256),
-            statusTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            statusTextField.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -16),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
-
-            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
-            statusLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-
-        ]
-        NSLayoutConstraint.activate(constraints)
-        //self.view.setNeedsLayout()
-        //self.view.layoutIfNeeded()
-        
-        
-        
-        
+        statusButton.snp.makeConstraints {maker in
+            maker.top.equalTo(avatarImageView.snp.bottom).inset(-40)
+            maker.left.equalToSuperview().inset(16)
+            maker.right.equalToSuperview().inset(16)
+            maker.height.equalTo(50)
+        }
         
     }
 

@@ -1,6 +1,7 @@
 
-
 import Foundation
+import UIKit
+import iOSIntPackage
 public struct Post {
     
     
@@ -41,7 +42,8 @@ public struct Post {
         )
     ]
     
-
     
 }
+
+
 
